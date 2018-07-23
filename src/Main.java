@@ -8,6 +8,7 @@ import java.util.concurrent.Future;
 
 public class Main {
 
+	//liczba klientów którzy odwiedzają gabinet golibrody
 	private static final int KLIENCI = 15;
 	private static ExecutorService pool = Executors.newFixedThreadPool(KLIENCI);
 	private static CompletionService<String> service = new ExecutorCompletionService<String>(pool);
@@ -20,6 +21,7 @@ public class Main {
 			List<Future<String>> results = new ArrayList<>();
 			results.add(service.submit(new Golibroda(gabinet)));
 			
+			//kolejni klienci wchodzą do gabinetu co 2s
 			for (int i = 0; i < KLIENCI; i++) {
 				results.add(service.submit(new Klient(gabinet)));
 				Thread.sleep(2000);
